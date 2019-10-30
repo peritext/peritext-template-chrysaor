@@ -31,8 +31,17 @@ class Section extends Component {
       // production = {},
       section
     } = this.props;
+    const {
+      data: {
+        contents = {
+          contents: {},
+          notesOrder: [],
+          notes: {}
+        }
+      }
+    } = section;
     return {
-      notes: section.data.contents.notes,
+      notes: contents.notes,
       onNoteContentPointerClick: this.onNoteContentPointerClick,
     };
   }
@@ -138,7 +147,8 @@ class Section extends Component {
           </div>
 
         </div>
-        {Object.keys( section.data.contents.notes ).length > 0 ?
+        {section.data.contents && 
+        Object.keys( section.data.contents.notes ).length > 0 ?
           <NotesContainer
             pointers={ this.noteContentPointers }
             notes={ section.data.contents.notes }

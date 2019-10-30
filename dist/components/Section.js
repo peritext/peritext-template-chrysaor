@@ -36,8 +36,17 @@ class Section extends _react.Component {
         // production = {},
         section
       } = this.props;
+      const {
+        data: {
+          contents = {
+            contents: {},
+            notesOrder: [],
+            notes: {}
+          }
+        }
+      } = section;
       return {
-        notes: section.data.contents.notes,
+        notes: contents.notes,
         onNoteContentPointerClick: this.onNoteContentPointerClick
       };
     });
@@ -111,7 +120,7 @@ class Section extends _react.Component {
         className: 'main-contents-wrapper'
       }, _react.default.createElement(_Renderer.default, {
         raw: contents
-      }))), Object.keys(section.data.contents.notes).length > 0 ? _react.default.createElement(_NotesContainer.default, {
+      }))), section.data.contents && Object.keys(section.data.contents.notes).length > 0 ? _react.default.createElement(_NotesContainer.default, {
         pointers: this.noteContentPointers,
         notes: section.data.contents.notes,
         notesOrder: section.data.contents.notesOrder,
