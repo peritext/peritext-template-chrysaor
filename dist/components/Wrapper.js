@@ -56,18 +56,9 @@ const routeItemToUrl = (item, index) => {
   }
 
   switch (item.routeClass) {
-    case 'landing':
-      return '/';
-
-    case 'sectionsList':
-      return `/list/${item.routeParams.elementId}`;
-
-    case 'resourcePage':
-      const additional = ['previousResourceId', 'nextResourceId', 'notesPosition', 'displayHeader'].reduce((res, key) => `${res}${item.routeParams[key] ? `&${key}=${item.routeParams[key]}` : ''}`, '');
-      return `/resource?resourceId=${item.routeParams.resourceId}&mode=screen${additional}`;
-
     default:
-      return `/${item.routeClass}/${item.viewId}`;
+      const additional = Object.keys(item.routeParams).reduce((res, key) => `${res}${item.routeParams[key] ? `&${key}=${item.routeParams[key]}` : ''}`, '');
+      return `?${additional}`;
   }
 };
 

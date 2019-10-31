@@ -147,7 +147,7 @@ class Section extends Component {
           </div>
 
         </div>
-        {section.data.contents && 
+        {section.data.contents &&
         Object.keys( section.data.contents.notes ).length > 0 ?
           <NotesContainer
             pointers={ this.noteContentPointers }
