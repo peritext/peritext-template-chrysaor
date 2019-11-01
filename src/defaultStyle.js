@@ -631,7 +631,7 @@ h1{
 
 .section-player .section-title .title-content{
   flex: 1;
-  word-break: break-all;
+  // word-break: break-all;
 }
 
 .main-contents-container{
