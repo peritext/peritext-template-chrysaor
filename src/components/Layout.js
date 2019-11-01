@@ -216,7 +216,7 @@ class Layout extends Component {
         production,
         edition = {},
         summary = [],
-        viewParams,
+        viewParams = {},
         viewId,
         viewClass,
         translate,
