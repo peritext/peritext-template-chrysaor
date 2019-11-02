@@ -35,7 +35,10 @@ const isBrowser = new Function('try {return this===window;}catch(e){ return fals
 const inBrowser = isBrowser();
 
 const getAdditionalRoutes = () => {
-  return [];
+  return [{
+    // routeClass: 'index',
+    routeParams: {}
+  }];
 };
 
 exports.getAdditionalRoutes = getAdditionalRoutes;
@@ -303,7 +306,6 @@ class Wrapper extends _react.Component {
     return _react.default.createElement(Router, {
       basename: window.__urlBaseName
     }, _react.default.createElement(_reactRouterDom.Switch, null, _react.default.createElement(_reactRouterDom.Route, {
-      exact: true,
       path: '/',
       component: props => {
         let additionalRouteParams = {};

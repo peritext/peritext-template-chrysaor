@@ -12,7 +12,12 @@ import PreviewLink from './PreviewLink';
 import RouterLink from './RouterLink';
 
 export const getAdditionalRoutes = () => {
-  return [ ];
+  return [
+    {
+      // routeClass: 'index',
+      routeParams: {}
+    }
+   ];
 };
 
 export const buildNav = ( ) => {
@@ -254,7 +259,6 @@ export default class Wrapper extends Component {
       <Router basename={ window.__urlBaseName }>
         <Switch>
           <Route
-            exact
             path={ '/' }
             component={ ( props ) => {
                 let additionalRouteParams = {};

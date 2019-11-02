@@ -32,7 +32,7 @@ const Header = ({
   }, title), _react.default.createElement("span", {
     onClick: () => setIsOpen(!isOpen)
   }, "+")), _react.default.createElement("div", {
-    className: "additional-container"
+    className: 'additional-container'
   }, _react.default.createElement("div", {
     className: 'main-header'
   }, subtitle && _react.default.createElement("h2", {

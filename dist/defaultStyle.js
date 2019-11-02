@@ -196,9 +196,12 @@ button{
 .chrysaor-layout .header .title .link{
   flex: 1;
 }
+.chrysaor-layout .header .main-header{
+  padding: .5rem;
+}
 .chrysaor-layout .header .additional-header{
   max-width: 50vw;
-  padding: .5rem;
+  padding: 0;
 }
 
 .chrysaor-layout .header .subtitle
@@ -220,10 +223,8 @@ button{
 .chrysaor-layout .header.is-open .additional-container{
   max-height: 100%;
   opacity: 1;
-}
-
-.chrysaor-layout .header.is-open .main-header{
-  padding: .5rem;
+  min-height: calc(100% - 3rem);
+  min-height: calc(100vh - 3rem);
 }
 
 .chrysaor-layout .header .subtitle,
@@ -234,8 +235,10 @@ button{
 
 .chrysaor-layout .header .description{
   font-size: .8rem;
-  max-height: 80vh;
   overflow-y: auto;
+  max-height: 100%;
+  padding-top: 0;
+  margin-top: .5rem;
 }
 
 /**

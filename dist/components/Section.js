@@ -110,6 +110,7 @@ class Section extends _react.Component {
         className: 'main-column'
       }, _react.default.createElement("h1", {
         style: isSticky ? {
+          left: parentBoundingRect.x,
           top: parentBoundingRect.y,
           width: parentBoundingRect.width
         } : {},
