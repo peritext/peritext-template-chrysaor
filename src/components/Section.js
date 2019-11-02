@@ -129,6 +129,7 @@ class Section extends Component {
         <div className={ 'main-column' }>
           <h1
             style={ isSticky ? {
+            left: parentBoundingRect.x,
             top: parentBoundingRect.y,
             width: parentBoundingRect.width,
           } : {} }
