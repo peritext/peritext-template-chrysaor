@@ -17,6 +17,7 @@ class Section extends Component {
     scrollToTop: PropTypes.func,
     dimensions: PropTypes.object,
   }
+
   constructor ( props ) {
     super( props );
     this.state = {
@@ -64,11 +65,11 @@ class Section extends Component {
   }
 
   onNoteContentPointerClick = ( noteId ) => {
-    this.context.scrollToElementId( noteId );
+    this.props.onScrollToElementId( noteId );
   }
 
   onNotePointerClick = ( noteId ) => {
-    this.context.scrollToElementId( `note-content-pointer-${noteId}` );
+    this.props.onScrollToElementId( `note-content-pointer-${noteId}` );
   }
 
   render = () => {
@@ -193,7 +194,6 @@ Section.contextTypes = {
   scrollRatio: PropTypes.number,
   scrollHeight: PropTypes.number,
   scrollToTop: PropTypes.func,
-  scrollToElementId: PropTypes.func,
   contextualizers: PropTypes.object,
   translate: PropTypes.func,
   citations: PropTypes.object,

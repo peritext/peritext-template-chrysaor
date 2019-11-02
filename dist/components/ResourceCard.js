@@ -36,7 +36,8 @@ const ResourceCard = ({
   highlights = [],
   isHighlighted,
   parentBoundingRect,
-  parentScrollPosition
+  parentScrollPosition,
+  onScrollToElementId
 }) => {
   if (status === 'is-active') {
     return _react.default.createElement("li", {
@@ -50,7 +51,8 @@ const ResourceCard = ({
       section: resource,
       displayHeader,
       parentBoundingRect,
-      parentScrollPosition
+      parentScrollPosition,
+      onScrollToElementId
     })));
   }
 

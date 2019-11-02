@@ -149,6 +149,14 @@ const ContentsColumn = function ({
     setParentScrollPosition(e.target.scrollTop);
   };
 
+  const onScrollToElementId = id => {
+    const target = realDocument.getElementById(id);
+
+    if (target && containerRef.current) {
+      containerRef.current.scrollTop = target.offsetTop;
+    }
+  };
+
   const parentBoundingRect = containerRef && containerRef.current && containerRef.current.getBoundingClientRect();
   return _react.default.createElement("section", {
     style: {
@@ -194,7 +202,8 @@ const ContentsColumn = function ({
       displayThumbnail: displayThumbnail,
       displayHeader: displayHeader,
       parentBoundingRect: parentBoundingRect,
-      parentScrollPosition: parentScrollPosition
+      parentScrollPosition: parentScrollPosition,
+      onScrollToElementId: onScrollToElementId
     });
   })));
 };

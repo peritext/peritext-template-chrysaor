@@ -25,6 +25,7 @@ const ResourceCard = ( {
   isHighlighted,
   parentBoundingRect,
   parentScrollPosition,
+  onScrollToElementId,
 } ) => {
   if ( status === 'is-active' ) {
     return (
@@ -42,6 +43,7 @@ const ResourceCard = ( {
               displayHeader,
               parentBoundingRect,
               parentScrollPosition,
+              onScrollToElementId,
             }
           }
           />

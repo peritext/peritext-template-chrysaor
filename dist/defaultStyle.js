@@ -743,7 +743,7 @@ h1{
 	font-size: 1rem;
 }
 
-.contents-column.is-collapsed .resource-card.is-collapsed .resource-card-content .card-title{
+.contents-column.is-collapsed .resource-card .resource-card-content .card-title{
 	font-size: .7rem;
 }
 

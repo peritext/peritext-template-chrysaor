@@ -62,11 +62,11 @@ class Section extends _react.Component {
     });
 
     _defineProperty(this, "onNoteContentPointerClick", noteId => {
-      this.context.scrollToElementId(noteId);
+      this.props.onScrollToElementId(noteId);
     });
 
     _defineProperty(this, "onNotePointerClick", noteId => {
-      this.context.scrollToElementId(`note-content-pointer-${noteId}`);
+      this.props.onScrollToElementId(`note-content-pointer-${noteId}`);
     });
 
     _defineProperty(this, "render", () => {
@@ -170,7 +170,6 @@ Section.contextTypes = {
   scrollRatio: _propTypes.default.number,
   scrollHeight: _propTypes.default.number,
   scrollToTop: _propTypes.default.func,
-  scrollToElementId: _propTypes.default.func,
   contextualizers: _propTypes.default.object,
   translate: _propTypes.default.func,
   citations: _propTypes.default.object,

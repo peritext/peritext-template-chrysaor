@@ -130,6 +130,13 @@ const ContentsColumn = function( {
     setParentScrollPosition( e.target.scrollTop );
   };
 
+  const onScrollToElementId = ( id ) => {
+    const target = realDocument.getElementById( id );
+    if ( target && containerRef.current ) {
+      containerRef.current.scrollTop = target.offsetTop;
+    }
+  };
+
   const parentBoundingRect = containerRef && containerRef.current && containerRef.current.getBoundingClientRect();
   return (
     <section
@@ -182,6 +189,7 @@ const ContentsColumn = function( {
                 displayHeader={ displayHeader }
                 parentBoundingRect={ parentBoundingRect }
                 parentScrollPosition={ parentScrollPosition }
+                onScrollToElementId={ onScrollToElementId }
               />
             );
           } )
