@@ -169,28 +169,34 @@ button{
   scroll-behavior: smooth;
 }
 
-.chrysaor-layout .header{
+.chrysaor-layout .header .additional-container{
   display: flex;
   flex-flow: row nowrap;
   justify-content: stretch;
   transition: all .5s ease;
 }
 
-.chrysaor-layout .header .main-header
+.chrysaor-layout .header .title
 {
   flex: 1;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+  padding: .5rem;
+  font-size: 1.2rem;
+  margin: 0;
+  transition: all .5s ease;
+  cursor: pointer;
+}
+.chrysaor-layout .header .title .link{
+  flex: 1;
+}
+.chrysaor-layout .header .main-header{
   padding: .5rem;
 }
 .chrysaor-layout .header .additional-header{
   max-width: 50vw;
-  padding: .5rem;
-}
-
-.chrysaor-layout .header .title{
-  font-size: 1.2rem;
   padding: 0;
-  margin: 0;
-  transition: all .5s ease;
 }
 
 .chrysaor-layout .header .subtitle
@@ -203,23 +209,17 @@ button{
   font-size: .8rem;
 }
 
-.chrysaor-layout .header .subtitle,
-.chrysaor-layout .header .authors,
-.chrysaor-layout .header .additional-header{
+.chrysaor-layout .header .additional-container{
   max-height: 0;
   overflow: hidden;
   transition: all .5s ease;
   opacity: 0;
 }
-.chrysaor-layout .header:hover .subtitle,
-.chrysaor-layout .header:hover .authors,
-.chrysaor-layout .header:hover .additional-header{
+.chrysaor-layout .header.is-open .additional-container{
   max-height: 100%;
   opacity: 1;
-}
-
-.chrysaor-layout .header:hover .main-header{
-  padding: .5rem;
+  min-height: calc(100% - 3rem);
+  min-height: calc(100vh - 3rem);
 }
 
 .chrysaor-layout .header .subtitle,
@@ -230,6 +230,10 @@ button{
 
 .chrysaor-layout .header .description{
   font-size: .8rem;
+  overflow-y: auto;
+  max-height: 100%;
+  padding-top: 0;
+  margin-top: .5rem;
 }
 
 /**
@@ -738,7 +742,9 @@ h1{
 	font-size: 1rem;
 }
 
-.contents-column.is-collapsed .resource-card .resource-card-content .card-title{
+.contents-column.is-collapsed .resource-card .resource-card-content .card-title,
+.contents-column.is-collapsed .resource-card .resource-card-content .card-authors
+{
 	font-size: .7rem;
 }
 
