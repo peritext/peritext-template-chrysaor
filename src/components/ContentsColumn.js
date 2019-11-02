@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   buildResourceSectionsSummary
 } from 'peritext-utils';
@@ -26,6 +26,8 @@ const ContentsColumn = function( {
 } ) {
   const realDocument = usedDocument || ( inBrowser ? document : {} );
   const { data = {} } = element;
+  const containerRef = useRef( null );
+
   const {
     displayThumbnail,
     displayHeader,
@@ -80,12 +82,11 @@ const ContentsColumn = function( {
         [resourceId]: res[resourceId] ? uniq( [ ...res[resourceId], ...pointingContextualizationsIds ] ) : pointingContextualizationsIds
       } : res;
     }, highlightedResources );
+
   }
-  const containerRef = useRef( null );
 
   useEffect( () => {
     if ( activeElementId === element.id && activeResourceId ) {
-
       setTimeout( () => {
         let targetElement;
         if ( selectedContextualizationId ) {
@@ -98,21 +99,38 @@ const ContentsColumn = function( {
           containerRef.current.scrollTop = targetElement.offsetTop - 80;
         }
 
-      }, 800 );
+      }, 1200 );
 
     }
+
   }, [ activeResourceId, selectedContextualizationId ] );
+
+  useEffect( () => {
+    if ( selectedResourceId ) {
+      const target = realDocument.getElementById( `${element.id}-${selectedResourceId}` );
+      if ( target ) {
+        containerRef.current.scrollTop = target.offsetTop - 80;
+      }
+    }
+  }, [ selectedResourceId ] );
   let maxWidth;
   if ( status === 'is-collapsed' && !Object.keys( highlightedResources ).length && !relatedResourcesIds.length ) {
     status = 'is-hidden';
     maxWidth = 0;
   }
- else if ( status === 'is-active' ) {
+  else if ( status === 'is-active' ) {
     // maxWidth = '50%';
   }
  else {
     maxWidth = `${100 / numberOfColumns }%`;
   }
+
+  const [ parentScrollPosition, setParentScrollPosition ] = useState( 0 );
+  const handleScroll = ( e ) => {
+    setParentScrollPosition( e.target.scrollTop );
+  };
+
+  const parentBoundingRect = containerRef && containerRef.current && containerRef.current.getBoundingClientRect();
   return (
     <section
       style={ {
@@ -128,6 +146,7 @@ const ContentsColumn = function( {
         ref={ containerRef }
         className={ 'cards-list' }
         id={ element.id }
+        onScroll={ handleScroll }
       >
         {
           sections.map( ( { resourceId }, index ) => {
@@ -161,6 +180,8 @@ const ContentsColumn = function( {
                 edition={ edition }
                 displayThumbnail={ displayThumbnail }
                 displayHeader={ displayHeader }
+                parentBoundingRect={ parentBoundingRect }
+                parentScrollPosition={ parentScrollPosition }
               />
             );
           } )

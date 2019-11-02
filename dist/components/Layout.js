@@ -194,7 +194,7 @@ class Layout extends _react.Component {
           production,
           edition = {},
           summary = [],
-          viewParams,
+          viewParams = {},
           viewId,
           viewClass,
           translate

@@ -46,6 +46,7 @@ const ContentsColumn = function ({
   const {
     data = {}
   } = element;
+  const containerRef = (0, _react.useRef)(null);
   const {
     displayThumbnail,
     displayHeader
@@ -106,7 +107,6 @@ const ContentsColumn = function ({
     }, highlightedResources);
   }
 
-  const containerRef = (0, _react.useRef)(null);
   (0, _react.useEffect)(() => {
     if (activeElementId === element.id && activeResourceId) {
       setTimeout(() => {
@@ -121,9 +121,18 @@ const ContentsColumn = function ({
         if (targetElement) {
           containerRef.current.scrollTop = targetElement.offsetTop - 80;
         }
-      }, 800);
+      }, 1200);
     }
   }, [activeResourceId, selectedContextualizationId]);
+  (0, _react.useEffect)(() => {
+    if (selectedResourceId) {
+      const target = realDocument.getElementById(`${element.id}-${selectedResourceId}`);
+
+      if (target) {
+        containerRef.current.scrollTop = target.offsetTop - 80;
+      }
+    }
+  }, [selectedResourceId]);
   let maxWidth;
 
   if (status === 'is-collapsed' && !Object.keys(highlightedResources).length && !relatedResourcesIds.length) {
@@ -134,6 +143,13 @@ const ContentsColumn = function ({
     maxWidth = `${100 / numberOfColumns}%`;
   }
 
+  const [parentScrollPosition, setParentScrollPosition] = (0, _react.useState)(0);
+
+  const handleScroll = e => {
+    setParentScrollPosition(e.target.scrollTop);
+  };
+
+  const parentBoundingRect = containerRef && containerRef.current && containerRef.current.getBoundingClientRect();
   return _react.default.createElement("section", {
     style: {
       maxWidth,
@@ -145,7 +161,8 @@ const ContentsColumn = function ({
   }, _react.default.createElement("h1", null, title)), _react.default.createElement("ul", {
     ref: containerRef,
     className: 'cards-list',
-    id: element.id
+    id: element.id,
+    onScroll: handleScroll
   }, sections.map(({
     resourceId
   }, index) => {
@@ -175,7 +192,9 @@ const ContentsColumn = function ({
       highlights: highlightedResources[resourceId],
       edition: edition,
       displayThumbnail: displayThumbnail,
-      displayHeader: displayHeader
+      displayHeader: displayHeader,
+      parentBoundingRect: parentBoundingRect,
+      parentScrollPosition: parentScrollPosition
     });
   })));
 };

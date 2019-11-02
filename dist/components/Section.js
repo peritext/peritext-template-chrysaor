@@ -75,7 +75,8 @@ class Section extends _react.Component {
           production,
           edition = {},
           section,
-          displayHeader
+          displayHeader,
+          parentBoundingRect = {}
         },
         context: {
           // dimensions,
@@ -93,14 +94,25 @@ class Section extends _react.Component {
         notesOrder: []
       };
       const sectionAuthors = section.metadata.authors || [];
+      let isSticky = false;
+
+      if (this.markerRef.current && this.markerRef.current.getBoundingClientRect().top < 90) {
+        isSticky = true; // console.log(this.markerRef.current.offsetTop, parentScrollPosition)
+      }
+
       const sectionAsCSLRecord = (0, _utils.convertSectionToCslRecord)(section, production, edition);
       return _react.default.createElement("section", {
-        className: 'main-contents-container section-player'
+        ref: this.markerRef,
+        className: `main-contents-container section-player ${isSticky ? 'is-sticky' : ''}`
       }, _react.default.createElement(_peritextUtils.StructuredCOinS, {
         cslRecord: sectionAsCSLRecord
       }), _react.default.createElement("div", {
         className: 'main-column'
       }, _react.default.createElement("h1", {
+        style: isSticky ? {
+          top: parentBoundingRect.y,
+          width: parentBoundingRect.width
+        } : {},
         className: 'view-title section-title'
       }, _react.default.createElement("span", {
         className: 'title-content'
@@ -136,6 +148,7 @@ class Section extends _react.Component {
         openedContextualizationId: undefined
       }
     };
+    this.markerRef = _react.default.createRef();
   }
 
 }

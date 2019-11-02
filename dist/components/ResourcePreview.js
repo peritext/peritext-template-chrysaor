@@ -19,7 +19,7 @@ const ResourcePreview = ({
   contextualizers,
   productionAssets
 }) => {
-  if (!['bib', 'glossary', 'section'].includes(resource.metadata.type)) {
+  if (!['glossary', 'section'].includes(resource.metadata.type)) {
     const ContextualizerComponent = contextualizers[resource.metadata.type] && contextualizers[resource.metadata.type].Block;
     const contextualizerId = (0, _uuid.v4)();
     const contextualization = {

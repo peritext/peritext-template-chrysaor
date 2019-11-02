@@ -23,6 +23,8 @@ const ResourceCard = ( {
   displayHeader,
   highlights = [],
   isHighlighted,
+  parentBoundingRect,
+  parentScrollPosition,
 } ) => {
   if ( status === 'is-active' ) {
     return (
@@ -38,6 +40,8 @@ const ResourceCard = ( {
               edition,
               section: resource,
               displayHeader,
+              parentBoundingRect,
+              parentScrollPosition,
             }
           }
           />

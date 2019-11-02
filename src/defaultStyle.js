@@ -151,6 +151,9 @@ button{
 .chrysaor-layout .contents-column.is-collapsed:not(:hover){
   opacity: .5;
 }*/
+.chrysaor-layout .contents-column.is-collapsed{
+  flex: 2;
+}
 .chrysaor-layout .contents-column.is-hidden{
   opacity: 0;
   max-width: 0;
@@ -629,6 +632,17 @@ h1{
   overflow: hidden;
 }
 
+.section-player.is-sticky .section-title{
+  position: fixed;
+  background: var(--color-background);
+  font-size: 1rem;
+  left: 0;
+  padding-left: 1.5rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
 .section-player .section-title .title-content{
   flex: 1;
   // word-break: break-all;
@@ -722,6 +736,10 @@ h1{
 
 .resource-card .resource-card-content .card-title{
 	font-size: 1rem;
+}
+
+.contents-column.is-collapsed .resource-card.is-collapsed .resource-card-content .card-title{
+	font-size: .7rem;
 }
 
 .resource-card.is-highlighted .link {

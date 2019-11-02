@@ -24,6 +24,7 @@ class Section extends Component {
         openedContextualizationId: undefined
       }
     };
+    this.markerRef = React.createRef();
   }
 
   getChildContext = () => {
@@ -77,6 +78,7 @@ class Section extends Component {
         edition = {},
         section,
         displayHeader,
+        parentBoundingRect = {},
       },
       context: {
         // dimensions,
@@ -99,10 +101,18 @@ class Section extends Component {
        notesOrder: []
      };
     const sectionAuthors = section.metadata.authors || [];
+    let isSticky = false;
+    if ( this.markerRef.current && this.markerRef.current.getBoundingClientRect().top < 90 ) {
+      isSticky = true;
+      // console.log(this.markerRef.current.offsetTop, parentScrollPosition)
+    }
 
     const sectionAsCSLRecord = convertSectionToCslRecord( section, production, edition );
     return (
-      <section className={ 'main-contents-container section-player' }>
+      <section
+        ref={ this.markerRef }
+        className={ `main-contents-container section-player ${isSticky ? 'is-sticky' : ''}` }
+      >
         {
 
          /*
@@ -116,7 +126,13 @@ class Section extends Component {
         }
         <StructuredCOinS cslRecord={ sectionAsCSLRecord } />
         <div className={ 'main-column' }>
-          <h1 className={ 'view-title section-title' }>
+          <h1
+            style={ isSticky ? {
+            top: parentBoundingRect.y,
+            width: parentBoundingRect.width,
+          } : {} }
+            className={ 'view-title section-title' }
+          >
             <span className={ 'title-content' }>{getResourceTitle( section ) || ( translate( 'untitled section' ) || 'Section sans titre' )}</span>
             <Link
               to={ {
