@@ -220,6 +220,7 @@ export default class Wrapper extends Component {
          edition,
          previewMode,
          useBrowserRouter = false,
+         preprocessedData,
        },
        state: {
         viewId,
@@ -241,6 +242,7 @@ export default class Wrapper extends Component {
           viewClass={ viewClass }
           viewParams={ viewParams }
           translate={ this.translate }
+          preprocessedData={ preprocessedData }
         />
       );
     }
@@ -282,6 +284,7 @@ export default class Wrapper extends Component {
                     translate={ this.translate }
                     viewClass={ viewClass }
                     viewParams={ additionalRouteParams }
+                    preprocessedData={ preprocessedData }
                   />
                 );
               } }

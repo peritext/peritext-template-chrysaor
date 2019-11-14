@@ -15,7 +15,7 @@ import Renderer from './Renderer';
 
 const ResourceCard = ( {
   resource,
-  elementId,
+  elementId = 'nope',
   displayThumbnail,
   production,
   edition,

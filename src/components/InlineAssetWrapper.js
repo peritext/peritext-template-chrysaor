@@ -67,8 +67,7 @@ const InlineAssetWrapper = ( {
                 selectedResourceId: active ? undefined : resource.id
               }
             } }
-        >
-            ●
+        >●
         </Link>
         <Link
           to={ {
@@ -97,8 +96,7 @@ const InlineAssetWrapper = ( {
               selectedResourceId: active ? undefined : resource.id
             }
           } }
-        >
-          ●
+        >●
         </Link>
       </span>
     );

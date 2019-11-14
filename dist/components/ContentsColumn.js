@@ -38,7 +38,8 @@ const ContentsColumn = function ({
   activeElementId,
   selectedResourceId,
   numberOfColumns = 1,
-  selectedContextualizationId
+  selectedContextualizationId,
+  isDefaultActive
 }, {
   usedDocument
 }) {
@@ -56,11 +57,11 @@ const ContentsColumn = function ({
     production,
     options: element.data
   });
-  let status = '';
+  let status = isDefaultActive ? 'is-active' : '';
   let activeResourceIndex;
 
-  if (activeElementId !== undefined) {
-    status = activeElementId === element.id ? 'is-active' : 'is-collapsed';
+  if (activeElementId !== undefined && !isDefaultActive) {
+    status = activeElementId === (element.id || 'nope') ? 'is-active' : 'is-collapsed';
     sections.some(({
       resourceId
     }, index) => {
@@ -169,7 +170,7 @@ const ContentsColumn = function ({
   }, _react.default.createElement("h1", null, title)), _react.default.createElement("ul", {
     ref: containerRef,
     className: 'cards-list',
-    id: element.id,
+    id: element.id || 'nope',
     onScroll: handleScroll
   }, sections.map(({
     resourceId

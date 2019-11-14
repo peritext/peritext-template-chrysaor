@@ -21,6 +21,7 @@ const ContentsColumn = function( {
   selectedResourceId,
   numberOfColumns = 1,
   selectedContextualizationId,
+  isDefaultActive,
 }, {
   usedDocument
 } ) {
@@ -34,10 +35,10 @@ const ContentsColumn = function( {
   } = data;
   const title = data.customTitle || translate( 'Selection' );
   const sections = buildResourceSectionsSummary( { production, options: element.data } );
-  let status = '';
+  let status = isDefaultActive ? 'is-active' : '';
   let activeResourceIndex;
-  if ( activeElementId !== undefined ) {
-    status = activeElementId === element.id ? 'is-active' : 'is-collapsed';
+  if ( activeElementId !== undefined && !isDefaultActive ) {
+    status = activeElementId === ( element.id || 'nope' ) ? 'is-active' : 'is-collapsed';
     sections.some( ( { resourceId }, index ) => {
       if ( resourceId === activeResourceId ) {
         activeResourceIndex = index;
@@ -152,7 +153,7 @@ const ContentsColumn = function( {
       <ul
         ref={ containerRef }
         className={ 'cards-list' }
-        id={ element.id }
+        id={ element.id || 'nope' }
         onScroll={ handleScroll }
       >
         {

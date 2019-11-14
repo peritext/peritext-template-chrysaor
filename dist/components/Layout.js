@@ -9,8 +9,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _reactCiteproc = require("react-citeproc");
-
 var _peritextUtils = require("peritext-utils");
 
 var _ProductionHead = _interopRequireDefault(require("./ProductionHead"));
@@ -22,6 +20,8 @@ var _Header = _interopRequireDefault(require("./Header"));
 var _defaultStyle = _interopRequireDefault(require("../defaultStyle"));
 
 var _ContentsColumn = _interopRequireDefault(require("./ContentsColumn"));
+
+var _CitationsProvider = _interopRequireDefault(require("./CitationsProvider"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55,17 +55,9 @@ class Layout extends _react.Component {
 
       return {
         dimensions,
-
-        /*
-         * scrollToElement: this.scrollToElement,
-         * scrollToElementId: this.scrollToElementId,
-         * scrollToTop: this.scrollTo,
-         * scrollTop: this.state.gui.scrollTop,
-         * scrollTopAbs: this.state.gui.scrollTopAbs,
-         * scrollRatio: this.state.gui.scrollRatio,
-         * scrollTopRatio: this.state.gui.scrollTopRatio,
-         * scrollHeight: this.globalScrollbar && this.globalScrollbar.getScrollHeight(),
-         */
+        preprocessedData: this.props.preprocessedData,
+        citationStyle: this.props.edition.data.citationStyle.data,
+        citationLocale: this.props.edition.data.citationLocale.data,
         viewParams: this.props.viewParams,
         rawCitations: this.state.citations,
         bindContextualizationElement: this.bindContextualizationElement,
@@ -74,25 +66,25 @@ class Layout extends _react.Component {
     });
 
     _defineProperty(this, "componentDidMount", () => {
-      this.updateConstants(this.props);
-      this.onProductionChange(this.context.production);
+      this.updateConstants(this.props, this.context);
     });
 
-    _defineProperty(this, "componentWillReceiveProps", nextProps => {
+    _defineProperty(this, "componentWillReceiveProps", (nextProps, nextContext) => {
       if (this.props.production !== nextProps.production) {
-        this.updateConstants(nextProps);
+        this.updateConstants(nextProps, nextContext);
       }
     });
 
-    _defineProperty(this, "componentWillUpdate", (nextProps, nextState, nextContext) => {
+    _defineProperty(this, "componentWillUpdate", (nextProps, _nextState, nextContext) => {
       if (this.context.production && nextContext.production && this.context.production.id !== nextContext.production.id) {
-        this.onProductionChange(nextContext.production);
+        this.updateConstants(nextProps, nextContext);
       }
     });
 
-    _defineProperty(this, "updateConstants", props => {
+    _defineProperty(this, "updateConstants", (props, context) => {
       this.setState({
-        finalCss: this.updateStyles(props, this.context)
+        finalCss: this.updateStyles(props, context),
+        citations: this.buildCitations(props)
       });
     });
 
@@ -100,63 +92,16 @@ class Layout extends _react.Component {
       this.contextualizationElements[id] = element;
     });
 
-    _defineProperty(this, "buildCitations", production => {
+    _defineProperty(this, "buildCitations", props => {
       const {
-        contextualizations,
-        resources,
-        contextualizers
-      } = production;
-      const bibContextualizations = Object.keys(contextualizations).filter(assetKey => contextualizers[contextualizations[assetKey].contextualizerId].type === 'bib').map(assetKey => contextualizations[assetKey]); // build citations items data
-
-      const citationItems = bibContextualizations.reduce((finalCitations, contextualization) => {
-        const resource = resources[contextualization.sourceId];
-        const citations = [...(0, _peritextUtils.resourceToCslJSON)(resource), ...(contextualization.additionalResources ? contextualization.additionalResources.map(resId => (0, _peritextUtils.resourceToCslJSON)(resources[resId])) : [])].flat();
-        const newCitations = citations.reduce((final2, citation) => {
-          return _objectSpread({}, final2, {
-            [citation.id]: citation
-          });
-        }, {});
-        return _objectSpread({}, finalCitations, newCitations);
-      }, {}); // build citations's citations data
-
-      const citationInstances = bibContextualizations // Object.keys(bibContextualizations)
-      .map((bibCit, index) => {
-        const key1 = bibCit.id;
-        const contextualization = contextualizations[key1];
-        const contextualizer = contextualizers[contextualization.contextualizerId];
-        const resource = resources[contextualization.sourceId];
-        const targets = [...(0, _peritextUtils.resourceToCslJSON)(resource), ...(bibCit.additionalResources ? bibCit.additionalResources.map(resId => (0, _peritextUtils.resourceToCslJSON)(resources[resId])) : [])].flat();
-        return {
-          citationID: key1,
-          citationItems: targets.map(ref => ({
-            locator: contextualizer.locator,
-            prefix: contextualizer.prefix,
-            suffix: contextualizer.suffix,
-            // ...contextualizer,
-            id: ref.id
-          })),
-          properties: {
-            noteIndex: index + 1
-          }
-        };
-      }).filter(c => c);
-      /*
-       * map them to the clumsy formatting needed by citeProc
-       * todo: refactor the citationInstances --> citeProc-formatted data as a util
-       */
-
-      const citationData = citationInstances.map((instance, index) => [instance, // citations before
-      citationInstances.slice(0, index === 0 ? 0 : index).map(oCitation => [oCitation.citationID, oCitation.properties.noteIndex]), []]);
-      return {
-        citationItems,
-        citationData
-      };
-    });
-
-    _defineProperty(this, "onProductionChange", production => {
-      this.setState({
-        citations: this.buildCitations(production)
-      });
+        production,
+        edition,
+        preprocessedData
+      } = props;
+      return preprocessedData && preprocessedData.global && preprocessedData.global.citations || (0, _peritextUtils.buildCitations)({
+        production,
+        edition
+      }, true);
     });
 
     _defineProperty(this, "updateStyles", (props, context) => {
@@ -214,8 +159,6 @@ class Layout extends _react.Component {
       const {
         additionalHTML = ''
       } = data;
-      const citationStyle = edition.data.citationStyle.data;
-      const citationLocale = edition.data.citationLocale.data;
       const globalTitle = edition.data.publicationTitle && edition.data.publicationTitle.length ? edition.data.publicationTitle : production.metadata.title;
       const globalSubtitle = edition.data.publicationSubtitle && edition.data.publicationSubtitle.length ? edition.data.publicationSubtitle : production.metadata.subtitle;
       const globalDescription = production.metadata.abstract;
@@ -235,12 +178,8 @@ class Layout extends _react.Component {
         selectedResourceId,
         selectedContextualizationId
       } = viewParams;
-      return _react.default.createElement(_reactCiteproc.ReferencesManager, {
-        style: citationStyle,
-        locale: citationLocale,
-        items: citations.citationItems,
-        citations: citations.citationData,
-        componentClass: 'references-manager'
+      return _react.default.createElement(_CitationsProvider.default, {
+        citations: citations
       }, _react.default.createElement(_ProductionHead.default, {
         production: production,
         edition: edition,
@@ -262,7 +201,8 @@ class Layout extends _react.Component {
         className: 'columns-container'
       }, editionSummary.map(element => {
         return _react.default.createElement(_ContentsColumn.default, _extends({
-          key: element.id
+          key: element.id,
+          isDefaultActive: editionSummary.length === 1
         }, {
           element,
           edition,
@@ -289,7 +229,7 @@ class Layout extends _react.Component {
     });
 
     this.state = {
-      citations: this.buildCitations(_props.production),
+      citations: this.buildCitations(_props, _context),
       finalCss: this.updateStyles(_props, _context),
       gui: {}
     };
@@ -309,7 +249,10 @@ Layout.childContextTypes = {
   viewParams: _propTypes.default.object,
   rawCitations: _propTypes.default.object,
   bindContextualizationElement: _propTypes.default.func,
-  scrollToContextualization: _propTypes.default.func
+  scrollToContextualization: _propTypes.default.func,
+  preprocessedData: _propTypes.default.object,
+  citationStyle: _propTypes.default.string,
+  citationLocale: _propTypes.default.string
 };
 
 var _default = inBrowser && sizeMe ? sizeMe({
