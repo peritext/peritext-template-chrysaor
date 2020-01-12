@@ -41,7 +41,7 @@ module.exports = {
         resourceTypes: [ 'glossary' ],
         customSummary: {
           active: false,
-          summary: []
+          summary: [],
         },
         notesPosition: 'footnotes',
         displayHeader: true,
