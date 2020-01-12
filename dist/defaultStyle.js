@@ -332,6 +332,9 @@ a:active{
 .csl-entry {
     word-break: break-all;
 }
+cite{
+  font-style: inherit;
+}
 
 /* views title */
 .view-title{
@@ -514,8 +517,12 @@ h1{
 
 .block-contextualization-container.embed{
   min-height: 50vh;
-  max-height: 80vh;
   position: absolute;
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .block-contextualization-container.embed .fullscreen > div{
@@ -537,7 +544,35 @@ h1{
   right: 1rem;
   botttom: 1rem;
 }
+.peritext-contextualization.block.embed .cover{
+  position: relative;
+}
 
+.peritext-contextualization.block.embed .cover img{
+  max-width: 100%;
+  max-height: 100%;
+  min-height: unset;
+}
+
+
+.block-contextualization-container.embed .cover h3{
+      background: rgba(0,0,0,0.8);
+      color: white;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: .5s ease;
+      padding: 0;
+      margin: 0;
+}
+.block-contextualization-container.embed .cover h3&:hover{
+  background: rgba(0,0,0,0.5);
+}
 .block-contextualization-container.table{
   max-width: 100%;
   width: 100%;
@@ -588,6 +623,10 @@ h1{
   align-items: center;
   justify-content: center;
   padding: var(--gutter-medium);
+}
+
+.block-contextualization-container.vegaLite .vega-embed details{
+  display: none;
 }
 
 /**
