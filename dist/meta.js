@@ -38,6 +38,7 @@ module.exports = {
       type: 'object',
       default: {
         resourceTypes: ['glossary'],
+        tag: [],
         customSummary: {
           active: false,
           summary: []
@@ -49,6 +50,17 @@ module.exports = {
       properties: {
         customTitle: {
           type: 'string'
+        },
+        tags: {
+          type: 'array',
+          items: {
+            type: 'string'
+          },
+          uiType: 'select',
+          description: 'which tags to include for displaying the contents',
+          enumTargetMap: 'tags',
+          enumId: 'id',
+          enumLabel: 'name'
         },
         resourceTypes: {
           type: 'array',
