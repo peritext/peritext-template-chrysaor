@@ -81,12 +81,14 @@ const ResourceCard = ({
     className: 'card-title'
   }, (0, _utils.ellipse)((0, _peritextUtils.getResourceTitle)(resource))), resource.metadata.authors && resource.metadata.authors.length > 0 && _react.default.createElement("p", {
     className: 'card-authors'
-  }, resource.metadata.authors.map(({
+  }, resource.metadata.authors.filter(({
+    family
+  }) => family && family.length).map(({
     family,
     given
   }, thatIndex) => _react.default.createElement("span", {
     key: thatIndex
-  }, given, " ", family)))), mentions.map(({
+  }, given, " ", family)).join(', '))), mentions.map(({
     contextualizationId,
     contents
   }, index) => {

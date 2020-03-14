@@ -144,10 +144,7 @@ class Section extends Component {
                 ✕
             </Link>
           </h1>
-          {
-            displayHeader &&
-            <ResourcePreview resource={ section } />
-          }
+
           {section.metadata.subtitle && <h2 className={ 'subtitle' }>{section.metadata.subtitle}</h2>}
           {sectionAuthors.length > 0 &&
           <h2 className={ 'authors' }>
@@ -160,6 +157,10 @@ class Section extends Component {
                 }
           </h2>
             }
+          {
+            displayHeader &&
+            <ResourcePreview resource={ section } />
+          }
           <div className={ 'main-contents-wrapper' }>
             <Renderer raw={ contents } />
           </div>

@@ -121,15 +121,15 @@ class Section extends _react.Component {
         to: {
           routeParams: {}
         }
-      }, "\u2715")), displayHeader && _react.default.createElement(_ResourcePreview.default, {
-        resource: section
-      }), section.metadata.subtitle && _react.default.createElement("h2", {
+      }, "\u2715")), section.metadata.subtitle && _react.default.createElement("h2", {
         className: 'subtitle'
       }, section.metadata.subtitle), sectionAuthors.length > 0 && _react.default.createElement("h2", {
         className: 'authors'
       }, sectionAuthors && sectionAuthors.length > 0 && sectionAuthors.map((author, index) => _react.default.createElement("span", {
         key: index
-      }, author.given, " ", author.family)).reduce((prev, curr) => [prev, ', ', curr])), _react.default.createElement("div", {
+      }, author.given, " ", author.family)).reduce((prev, curr) => [prev, ', ', curr])), displayHeader && _react.default.createElement(_ResourcePreview.default, {
+        resource: section
+      }), _react.default.createElement("div", {
         className: 'main-contents-wrapper'
       }, _react.default.createElement(_Renderer.default, {
         raw: contents

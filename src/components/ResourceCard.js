@@ -81,8 +81,10 @@ const ResourceCard = ( {
                   resource.metadata.authors && resource.metadata.authors.length > 0 &&
                   <p className={ 'card-authors' }>
                     {
-                      resource.metadata.authors.map( ( { family, given }, thatIndex ) =>
-                        <span key={ thatIndex }>{given} {family}</span> )
+                      resource.metadata.authors
+                      .filter( ( { family } ) => family && family.length )
+                      .map( ( { family, given }, thatIndex ) =>
+                        <span key={ thatIndex }>{given} {family}</span> ).join( ', ' )
                     }
                   </p>
                 }
