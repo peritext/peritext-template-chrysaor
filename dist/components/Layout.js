@@ -83,7 +83,7 @@ class Layout extends _react.Component {
 
     _defineProperty(this, "updateConstants", (props, context) => {
       this.setState({
-        finalCss: this.updateStyles(props, context),
+        finalCss: !props.excludeCss && this.updateStyles(props, context),
         citations: this.buildCitations(props)
       });
     });
@@ -142,7 +142,8 @@ class Layout extends _react.Component {
           viewParams = {},
           viewId,
           viewClass,
-          translate
+          translate,
+          excludeCss
         },
         context: {},
         state: {
@@ -214,7 +215,7 @@ class Layout extends _react.Component {
           translate,
           numberOfColumns: editionSummary.length
         }));
-      })), children)), _react.default.createElement("style", {
+      })), children)), !excludeCss && _react.default.createElement("style", {
         type: 'text/css',
         dangerouslySetInnerHTML: {
           /* eslint react/no-danger: 0 */
@@ -230,7 +231,7 @@ class Layout extends _react.Component {
 
     this.state = {
       citations: this.buildCitations(_props, _context),
-      finalCss: this.updateStyles(_props, _context),
+      finalCss: !_props.excludeCss && this.updateStyles(_props, _context),
       gui: {}
     };
     this.contextualizationElements = {};

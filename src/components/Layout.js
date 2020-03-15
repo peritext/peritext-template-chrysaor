@@ -22,7 +22,7 @@ class Layout extends Component {
     super( props );
     this.state = {
       citations: this.buildCitations( props, context ),
-      finalCss: this.updateStyles( props, context ),
+      finalCss: !props.excludeCss && this.updateStyles( props, context ),
       gui: {}
     };
     this.contextualizationElements = {};
@@ -67,7 +67,7 @@ class Layout extends Component {
 
   updateConstants = ( props, context ) => {
     this.setState( {
-      finalCss: this.updateStyles( props, context ),
+      finalCss: !props.excludeCss && this.updateStyles( props, context ),
       citations: this.buildCitations( props )
     } );
   }
@@ -133,6 +133,7 @@ class Layout extends Component {
         viewId,
         viewClass,
         translate,
+        excludeCss,
       },
       context: {
 
@@ -222,12 +223,15 @@ class Layout extends Component {
           </section>
 
         </section>
-        <style
-          type={ 'text/css' }
-          dangerouslySetInnerHTML={ {/* eslint react/no-danger: 0 */
-            __html: finalCss
-          } }
-        />
+        {
+          !excludeCss &&
+          <style
+            type={ 'text/css' }
+            dangerouslySetInnerHTML={ {/* eslint react/no-danger: 0 */
+              __html: finalCss
+            } }
+          />
+        }
         <div
           dangerouslySetInnerHTML={ {/* eslint react/no-danger: 0 */
             __html: additionalHTML
