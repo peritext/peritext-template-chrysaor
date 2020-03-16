@@ -1,6 +1,6 @@
 {
   "name": "peritext-template-chrysaor",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "a column-based screen template, for the peritext ecosystem",
   "main": "dist/index.js",
   "scripts": {
