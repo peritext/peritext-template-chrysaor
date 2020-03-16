@@ -272,7 +272,8 @@ class Wrapper extends _react.Component {
         previewMode,
         useBrowserRouter = false,
         preprocessedData,
-        excludeCss
+        excludeCss,
+        staticRender
       },
       state: {
         viewId,
@@ -293,7 +294,8 @@ class Wrapper extends _react.Component {
         viewParams: viewParams,
         translate: this.translate,
         preprocessedData: preprocessedData,
-        excludeCss: excludeCss
+        excludeCss: excludeCss,
+        staticRender: staticRender
       });
     }
 
@@ -328,7 +330,8 @@ class Wrapper extends _react.Component {
           viewClass: viewClass,
           viewParams: additionalRouteParams,
           preprocessedData: preprocessedData,
-          excludeCss: excludeCss
+          excludeCss: excludeCss,
+          staticRender: staticRender
         });
       }
     }), _react.default.createElement(_reactRouterDom.Route, {

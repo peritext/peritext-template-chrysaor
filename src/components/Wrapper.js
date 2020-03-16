@@ -222,6 +222,7 @@ export default class Wrapper extends Component {
          useBrowserRouter = false,
          preprocessedData,
          excludeCss,
+         staticRender,
        },
        state: {
         viewId,
@@ -245,6 +246,7 @@ export default class Wrapper extends Component {
           translate={ this.translate }
           preprocessedData={ preprocessedData }
           excludeCss={ excludeCss }
+          staticRender={ staticRender }
         />
       );
     }
@@ -288,6 +290,7 @@ export default class Wrapper extends Component {
                     viewParams={ additionalRouteParams }
                     preprocessedData={ preprocessedData }
                     excludeCss={ excludeCss }
+                    staticRender={ staticRender }
                   />
                 );
               } }

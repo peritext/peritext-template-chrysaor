@@ -38,9 +38,11 @@ const inBrowser = isBrowser();
 /* eslint no-new-func : 0 */
 
 let sizeMe;
+let SizeMe;
 
 if (inBrowser) {
   sizeMe = require('react-sizeme');
+  SizeMe = require('react-sizeme').SizeMe;
 }
 
 class Layout extends _react.Component {
@@ -256,10 +258,20 @@ Layout.childContextTypes = {
   citationLocale: _propTypes.default.string
 };
 
-var _default = inBrowser && sizeMe ? sizeMe({
-  monitorHeight: true,
-  monitorWidth: true,
-  monitorPosition: true
-})(Layout) : Layout;
+var _default = props => {
+  if (!props.staticRender && inBrowser && sizeMe) {
+    return _react.default.createElement(SizeMe, {
+      monitorHeight: true,
+      monitorWidth: true,
+      monitorPosition: true
+    }, ({
+      size
+    }) => _react.default.createElement(Layout, _extends({}, props, {
+      size: size
+    })));
+  }
+
+  return _react.default.createElement(Layout, props);
+};
 
 exports.default = _default;
