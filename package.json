@@ -1,6 +1,6 @@
 {
   "name": "peritext-template-chrysaor",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "a column-based screen template, for the peritext ecosystem",
   "main": "dist/index.js",
   "scripts": {
@@ -36,7 +36,7 @@
     "react-helmet": "^5.2.0",
     "react-markdown": "^4.0.6",
     "react-router-dom": "^4.3.1",
-    "react-sizeme": "^2.5.2",
+    "react-sizeme": "^2.6.12",
     "react-tooltip": "^3.10.0",
     "redraft": "^0.10.2"
   },
