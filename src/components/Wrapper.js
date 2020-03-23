@@ -73,7 +73,7 @@ export default class Wrapper extends Component {
     routeItemToUrl: PropTypes.func,
     usedDocument: PropTypes.object,
     translate: PropTypes.func,
-    getViewIdForSectionId: PropTypes.func,
+    getViewForResourceId: PropTypes.func,
   }
 
   static propTypes = {
@@ -108,7 +108,7 @@ export default class Wrapper extends Component {
     production: this.props.production,
     productionAssets: this.props.production.assets,
     usedDocument: this.props.usedDocument,
-    getViewIdForSectionId: this.getViewIdForSectionId,
+    getViewForResourceId: this.getViewForResourceId,
   } )
 
   componentWillReceiveProps( nextProps ) {
@@ -199,14 +199,14 @@ export default class Wrapper extends Component {
     }
   }
 
-  getViewIdForSectionId = ( sectionId ) => {
+  getViewForResourceId = ( resourceId ) => {
 
     /*
      * gets the first section nav item that matches a specific section
      * (explanations: there can be several times the same section)
      */
     const { navSummary } = this.state;
-    const firstMatch = navSummary.find( ( item ) => item.routeClass === 'sections' && item.routeParams.resourceId === sectionId );
+    const firstMatch = navSummary.find( ( item ) => item.routeClass === 'sections' && item.routeParams.resourceId === resourceId );
     if ( firstMatch ) {
       return firstMatch.viewId;
     }

@@ -4,16 +4,16 @@ import Link from './LinkProvider';
 
 const SectionLink = ( {
   children,
-  sectionId,
+  resourceId,
 }, {
-getViewIdForSectionId
+getViewForResourceId
 } ) => (
   <Link
     to={ {
       routeClass: 'sections',
-      viewId: getViewIdForSectionId( sectionId ),
+      viewId: getViewForResourceId( resourceId ),
       routeParams: {
-        sectionId,
+        resourceId,
       }
     } }
   >
@@ -22,7 +22,7 @@ getViewIdForSectionId
 );
 
 SectionLink.contextTypes = {
-  getViewIdForSectionId: PropTypes.func,
+  getViewForResourceId: PropTypes.func,
 };
 
 export default SectionLink;

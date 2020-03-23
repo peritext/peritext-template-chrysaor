@@ -766,13 +766,8 @@ h1{
   max-height: 100%;
   overflow: hidden;
   padding: 0;
-  transition: max-height .5s ease;
-}
-
-.resource-card.is-collapsed .resource-card-content > .link,
-.resource-card.is-collapsed .resource-card-content > .link > .card-title{
-  opacity: 1;
   transition: all .5s ease;
+  opacity: 1;
 }
 
 .resource-card .resource-card-content .card-title,
@@ -791,6 +786,11 @@ h1{
 {
 	font-size: .7rem;
 }
+
+.resource-card.is-collapsed .card-title{
+  opacity: 0;
+}
+
 
 .resource-card.is-highlighted .link {
   color: var(--color-link-active);

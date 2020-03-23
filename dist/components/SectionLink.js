@@ -15,21 +15,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const SectionLink = ({
   children,
-  sectionId
+  resourceId
 }, {
-  getViewIdForSectionId
+  getViewForResourceId
 }) => _react.default.createElement(_LinkProvider.default, {
   to: {
     routeClass: 'sections',
-    viewId: getViewIdForSectionId(sectionId),
+    viewId: getViewForResourceId(resourceId),
     routeParams: {
-      sectionId
+      resourceId
     }
   }
 }, children);
 
 SectionLink.contextTypes = {
-  getViewIdForSectionId: _propTypes.default.func
+  getViewForResourceId: _propTypes.default.func
 };
 var _default = SectionLink;
 exports.default = _default;
