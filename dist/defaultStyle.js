@@ -780,6 +780,15 @@ h1{
 .resource-card .resource-card-content .card-title{
 	font-size: 1rem;
 }
+.resource-card.is-level-1 .card-title{
+  font-size: .8rem;
+}
+.resource-card.is-level-2 .card-title{
+  font-size: .7rem;
+}
+.resource-card.is-level-3 .card-title{
+  font-size: .5rem;
+}
 
 .contents-column.is-collapsed .resource-card .resource-card-content .card-title,
 .contents-column.is-collapsed .resource-card .resource-card-content .card-authors

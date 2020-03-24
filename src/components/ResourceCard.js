@@ -19,6 +19,7 @@ const ResourceCard = ( {
   displayThumbnail,
   production,
   edition,
+  level,
   status = '',
   displayHeader,
   highlights = [],
@@ -30,7 +31,7 @@ const ResourceCard = ( {
   if ( status === 'is-active' ) {
     return (
       <li
-        className={ `resource-card ${status}` }
+        className={ `resource-card ${status} is-level-${level}` }
         id={ `${elementId}-${resource.id}` }
       >
         <div className={ 'resource-card-content' }>
@@ -44,6 +45,7 @@ const ResourceCard = ( {
               parentBoundingRect,
               parentScrollPosition,
               onScrollToElementId,
+              level,
             }
           }
           />
@@ -60,7 +62,7 @@ const ResourceCard = ( {
   } );
   return (
     <li
-      className={ `resource-card ${status} ${isHighlighted ? 'is-highlighted' : ''}` }
+      className={ `resource-card ${status} ${isHighlighted ? 'is-highlighted' : ''}  is-level-${level}` }
       id={ `${elementId}-${resource.id}` }
     >
       <div className={ 'resource-card-content' }>

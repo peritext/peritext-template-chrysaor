@@ -173,7 +173,8 @@ const ContentsColumn = function ({
     id: element.id || 'nope',
     onScroll: handleScroll
   }, sections.map(({
-    resourceId
+    resourceId,
+    level
   }, index) => {
     let thatResourceStatus;
 
@@ -194,6 +195,7 @@ const ContentsColumn = function ({
     return _react.default.createElement(_ResourceCard.default, {
       key: index,
       resource: production.resources[resourceId],
+      level: level,
       elementId: element.id,
       status: thatResourceStatus,
       production: production,

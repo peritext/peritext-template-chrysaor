@@ -157,7 +157,7 @@ const ContentsColumn = function( {
         onScroll={ handleScroll }
       >
         {
-          sections.map( ( { resourceId }, index ) => {
+          sections.map( ( { resourceId, level }, index ) => {
             let thatResourceStatus;
             if ( activeResourceId !== undefined ) {
               if ( activeResourceId === resourceId && status === 'is-active' ) {
@@ -180,6 +180,7 @@ const ContentsColumn = function( {
               <ResourceCard
                 key={ index }
                 resource={ production.resources[resourceId] }
+                level={ level }
                 elementId={ element.id }
                 status={ thatResourceStatus }
                 production={ production }
