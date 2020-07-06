@@ -81,25 +81,13 @@ const InlineAssetWrapper = ({
           selectedResourceId: active ? undefined : resource.id
         })
       }
-    }, "\u25CF"), _react.default.createElement(_LinkProvider.default, {
-      to: {
-        routeParams: _objectSpread({}, viewParams, {
-          selectedResourceId: active ? undefined : resource.id
-        })
-      }
     }, _react.default.createElement(Component, {
       contextualization: contextualization,
       contextualizer: contextualizer,
       assets: assets,
       resource: resource,
       renderingMode: 'screened'
-    }, children)), _react.default.createElement(_LinkProvider.default, {
-      to: {
-        routeParams: _objectSpread({}, viewParams, {
-          selectedResourceId: active ? undefined : resource.id
-        })
-      }
-    }, "\u25CF"));
+    }, children)));
   }
 
   return null;

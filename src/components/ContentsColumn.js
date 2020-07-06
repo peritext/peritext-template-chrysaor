@@ -100,7 +100,7 @@ const ContentsColumn = function( {
           containerRef.current.scrollTop = targetElement.offsetTop - 80;
         }
 
-      }, 1200 );
+      }, 1600 );
 
     }
 
@@ -115,7 +115,7 @@ const ContentsColumn = function( {
     }
   }, [ selectedResourceId ] );
   let maxWidth;
-  if ( status === 'is-collapsed' && !Object.keys( highlightedResources ).length && !relatedResourcesIds.length ) {
+  if ( status === 'is-collapsed' && Object.keys( highlightedResources ).length && !relatedResourcesIds.length ) {
     status = 'is-hidden';
     maxWidth = 0;
   }
@@ -143,7 +143,7 @@ const ContentsColumn = function( {
     <section
       style={ {
         maxWidth,
-        minWidth: status === 'is-collapsed' ? '10%' : undefined
+        minWidth: status === 'is-collapsed' ? 0 : undefined
       } }
       className={ `contents-column ${status}` }
     >

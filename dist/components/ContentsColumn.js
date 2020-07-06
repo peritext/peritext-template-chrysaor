@@ -122,7 +122,7 @@ const ContentsColumn = function ({
         if (targetElement) {
           containerRef.current.scrollTop = targetElement.offsetTop - 80;
         }
-      }, 1200);
+      }, 1600);
     }
   }, [activeResourceId, selectedContextualizationId]);
   (0, _react.useEffect)(() => {
@@ -136,7 +136,7 @@ const ContentsColumn = function ({
   }, [selectedResourceId]);
   let maxWidth;
 
-  if (status === 'is-collapsed' && !Object.keys(highlightedResources).length && !relatedResourcesIds.length) {
+  if (status === 'is-collapsed' && Object.keys(highlightedResources).length && !relatedResourcesIds.length) {
     status = 'is-hidden';
     maxWidth = 0;
   } else if (status === 'is-active') {// maxWidth = '50%';
@@ -162,7 +162,7 @@ const ContentsColumn = function ({
   return _react.default.createElement("section", {
     style: {
       maxWidth,
-      minWidth: status === 'is-collapsed' ? '10%' : undefined
+      minWidth: status === 'is-collapsed' ? 0 : undefined
     },
     className: `contents-column ${status}`
   }, _react.default.createElement("div", {

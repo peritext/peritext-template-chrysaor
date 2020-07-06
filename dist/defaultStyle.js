@@ -35,7 +35,8 @@ Used breakpoints
 
 
   --color-background: #ffffff;
-  --color-link-default: #99B6BD;/* bleu délavé */
+  /*--color-link-default: #99B6BD;*//* bleu délavé */
+  --color-link-default: #4c818d;
   --color-link-active:#D4613E;/* rouille */
   --color-text: #4d4c4c;
 
@@ -305,7 +306,7 @@ button{
 .chrysaor-layout{
   text-rendering: optimizeLegibility;
   color: var(--color-text);
-  font-family:"Fira Sans", serif;
+  font-family:"Source sans pro", serif;
 }
 .link,
 a,
@@ -689,6 +690,9 @@ h1{
   padding-right: 1rem;
   box-sizing: border-box;
   z-index: 1;
+  border-bottom: 1px solid var(--color-link-default);
+  padding-bottom: .5rem;
+  font-weight: 800;
 }
 
 .section-player .section-title .title-content{
@@ -776,6 +780,10 @@ h1{
   margin: 0;
   padding: .5rem;
 }
+.resource-card .resource-card-content .card-authors
+{
+  font-size: .8em;
+}
 
 .resource-card .resource-card-content .card-title{
 	font-size: 1rem;
@@ -818,7 +826,8 @@ h1{
 .resource-card.is-collapsed .resource-card-content{
   max-height: .1rem;
   border: 1px solid lightgrey;
-  margin: .1rem .5rem;;
+  /*margin: .1rem .5rem;;*/
+  margin: 0 .5rem;
 }
 
 .contents-column.is-active .resource-card.is-collapsed .resource-card-content{

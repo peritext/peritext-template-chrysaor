@@ -60,7 +60,7 @@ const InlineAssetWrapper = ( {
         {resource.metadata.type !== 'glossary' &&
         <StructuredCOinS resource={ resource } />
         }
-        <Link
+        {/*<Link
           to={ {
               routeParams: {
                 ...viewParams,
@@ -68,7 +68,7 @@ const InlineAssetWrapper = ( {
               }
             } }
         >●
-        </Link>
+        </Link>*/}
         <Link
           to={ {
               routeParams: {
@@ -89,7 +89,7 @@ const InlineAssetWrapper = ( {
             {children}
           </Component>
         </Link>
-        <Link
+        {/*<Link
           to={ {
             routeParams: {
               ...viewParams,
@@ -97,7 +97,7 @@ const InlineAssetWrapper = ( {
             }
           } }
         >●
-        </Link>
+        </Link>*/}
       </span>
     );
   }

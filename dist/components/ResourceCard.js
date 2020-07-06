@@ -64,6 +64,7 @@ const ResourceCard = ({
       contextualizationId
     });
   });
+  const authors = resource.metadata.type === 'bib' ? resource.data.citations[0].author : resource.metadata.authors;
   return _react.default.createElement("li", {
     className: `resource-card ${status} ${isHighlighted ? 'is-highlighted' : ''}  is-level-${level}`,
     id: `${elementId}-${resource.id}`
@@ -81,16 +82,16 @@ const ResourceCard = ({
     }
   }, _react.default.createElement("h2", {
     className: 'card-title'
-  }, (0, _utils.ellipse)((0, _peritextUtils.getResourceTitle)(resource))), resource.metadata.authors && resource.metadata.authors.length > 0 && _react.default.createElement("p", {
+  }, resource.metadata.type === 'section' ? (0, _peritextUtils.getResourceTitle)(resource) : (0, _utils.ellipse)((0, _peritextUtils.getResourceTitle)(resource))), authors && authors.length > 0 && _react.default.createElement("p", {
     className: 'card-authors'
-  }, resource.metadata.authors.filter(({
+  }, authors.filter(({
     family
   }) => family && family.length).map(({
     family,
     given
   }, thatIndex) => _react.default.createElement("span", {
     key: thatIndex
-  }, given, " ", family)).join(', '))), mentions.map(({
+  }, given, " ", family)).reduce((cur, el, index) => [...cur, index === 0 ? '' : ', ', el], []))), mentions.map(({
     contextualizationId,
     contents
   }, index) => {
@@ -120,14 +121,14 @@ const ResourceCard = ({
     resource: resource
   }), _react.default.createElement("h2", {
     className: 'card-title'
-  }, (0, _utils.ellipse)((0, _peritextUtils.getResourceTitle)(resource))), resource.metadata.authors && resource.metadata.authors.length > 0 && _react.default.createElement("p", {
+  }, (0, _utils.ellipse)((0, _peritextUtils.getResourceTitle)(resource))), authors && authors.length > 0 && _react.default.createElement("p", {
     className: 'card-authors'
-  }, resource.metadata.authors.map(({
+  }, authors.map(({
     family,
     given
   }, thatIndex) => _react.default.createElement("span", {
     key: thatIndex
-  }, given, " ", family))))));
+  }, given, " ", family)).reduce((cur, el, index) => [...cur, index === 0 ? '' : ', ', el], [])))));
 };
 
 var _default = ResourceCard;

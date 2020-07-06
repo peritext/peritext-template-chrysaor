@@ -60,6 +60,7 @@ const ResourceCard = ( {
       contextualizationId,
     };
   } );
+  const authors = resource.metadata.type === 'bib' ? resource.data.citations[0].author : resource.metadata.authors;
   return (
     <li
       className={ `resource-card ${status} ${isHighlighted ? 'is-highlighted' : ''}  is-level-${level}` }
@@ -78,15 +79,16 @@ const ResourceCard = ( {
                 }
               } }
               >
-                <h2 className={ 'card-title' }>{ellipse( getResourceTitle( resource ) )}</h2>
+                <h2 className={ 'card-title' }>{resource.metadata.type === 'section' ? getResourceTitle( resource ) : ellipse( getResourceTitle( resource ) )}</h2>
                 {
-                  resource.metadata.authors && resource.metadata.authors.length > 0 &&
+                  authors && authors.length > 0 &&
                   <p className={ 'card-authors' }>
                     {
-                      resource.metadata.authors
+                      authors
                       .filter( ( { family } ) => family && family.length )
                       .map( ( { family, given }, thatIndex ) =>
-                        <span key={ thatIndex }>{given} {family}</span> ).join( ', ' )
+                        <span key={ thatIndex }>{given} {family}</span> )
+                      .reduce( ( cur, el, index ) => [ ...cur, index === 0 ? '' : ', ', el ], [] )
                     }
                   </p>
                 }
@@ -128,11 +130,12 @@ const ResourceCard = ( {
               }
               <h2 className={ 'card-title' }>{ellipse( getResourceTitle( resource ) )}</h2>
               {
-                resource.metadata.authors && resource.metadata.authors.length > 0 &&
+                authors && authors.length > 0 &&
                 <p className={ 'card-authors' }>
                   {
-                    resource.metadata.authors.map( ( { family, given }, thatIndex ) =>
+                    authors.map( ( { family, given }, thatIndex ) =>
                       <span key={ thatIndex }>{given} {family}</span> )
+                      .reduce( ( cur, el, index ) => [ ...cur, index === 0 ? '' : ', ', el ], [] )
                   }
                 </p>
               }
