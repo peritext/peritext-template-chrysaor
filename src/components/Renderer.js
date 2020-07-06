@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import redraft from 'redraft';
 import { constants } from 'peritext-schemas';
+import uniqBy from 'lodash/uniqBy';
 
 import Link from './Link';
 
@@ -23,6 +24,34 @@ const {
 
 // just a helper to add a <br /> after each block
 const addBreaklines = ( children ) => children.map( ( child, index ) => [ child, <br key={ index + 1 } /> ] );
+
+const desantangleContent = ( raw = {} ) => ( {
+  ...raw,
+  blocks: raw.blocks ? raw.blocks.map( ( block ) => {
+    const entityRanges = uniqBy( block.entityRanges, ( e ) => e.key )
+    .sort( ( a, b ) => {
+      if ( a.offset < b.offset ) {
+        return -1;
+      }
+      return 1;
+    } );
+
+    /*
+     * entityRanges = entityRanges
+     * .reduce((res, entity, index) => {
+     *   const next = entityRanges[index + 1];
+     *   if (next && entity.offset + entity.length > next.offset) {
+     *     entity.length = next.offset - entity.offset;
+     *   }
+     *   return [...res, entity]
+     * }, [])
+     */
+    return {
+      ...block,
+      entityRanges,
+    };
+  } ) : []
+} );
 
 /**
  * Define the renderers
@@ -238,7 +267,7 @@ class Renderer extends Component {
     if ( !raw ) {
       return this.renderWarning();
     }
-    const rendered = redraft( raw, renderers );
+    const rendered = redraft( desantangleContent( raw ), renderers );
     // redraft can return a null if there's nothing to render
     if ( !rendered ) {
       return this.renderWarning();
