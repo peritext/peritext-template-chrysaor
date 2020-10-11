@@ -848,6 +848,7 @@ h1{
 }
 .excerpt .rendered-content div{
   margin-bottom: 0;
+  font-size: 1.2em;
 }
 
 @media screen and (min-width: 1224px) {
